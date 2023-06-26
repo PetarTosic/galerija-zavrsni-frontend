@@ -1,7 +1,7 @@
 const Login = () => {
   return (
     <div style={{display: 'flex', justifyContent: "center"}}>
-      <form style={{width: "25vw"}}>
+      <form style={{width: "35vw", backgroundColor: "lightgray", padding: "30px", borderRadius: "20px"}}>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
         <div className="form-floating">
           <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />

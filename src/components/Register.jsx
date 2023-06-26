@@ -1,7 +1,7 @@
 const Register = () => {
   return(
     <div style={{display: 'flex', justifyContent: "center"}}>
-      <form style={{width: "25vw"}}>
+      <form style={{width: "35vw", backgroundColor: "lightgray", padding: "30px", borderRadius: "20px"}}>
         <h1 className="h3 mb-3 fw-normal">Register</h1>
         <div className="form-floating">
           <input type="text" className="form-control" id="firstName" placeholder="First Name" required/>
@@ -16,11 +16,11 @@ const Register = () => {
           <label for="email">Email address</label>
         </div>
         <div className="form-floating mt-3">
-          <input type="password" className="form-control" id="password" placeholder="Password" required/>
+          <input type="password" className="form-control" id="password" placeholder="Password" pattern="(?=.*\d).{8,}" required/>
           <label for="password">Password</label>
         </div>
         <div className="form-floating mt-3">
-          <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" required/>
+          <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" pattern="(?=.*\d).{8,}" required/>
           <label for="confirmPassword">Confirm Password</label>
         </div>
         <div className="form-check text-start my-3">
