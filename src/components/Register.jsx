@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { performRegister } from "../store/user/slice";
+import { selectLogedIn, selectLogedUser } from "../store/user/selectors";
 
 const Register = () => {
+  const logedIn = useSelector(selectLogedIn);
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -8,6 +12,23 @@ const Register = () => {
     password: "",
     password_confirmation: "",
   });
+  const dispatch = useDispatch();
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    dispatch(performRegister(user));
+
+    setUser({
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    });
+  };
+
 
   const handelInputChange = (event) => {
     const { name, value } = event.target;
@@ -19,6 +40,7 @@ const Register = () => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <form
+        onSubmit={(e) => handleSubmit(e)}
         style={{
           width: "35vw",
           backgroundColor: "lightgray",
