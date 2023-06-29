@@ -1,10 +1,9 @@
-// import * as chuckSagas from "./chuck/saga";
 import * as userSagas from "./user/saga";
+import * as gallerySagas from "./gallery/saga";
 
 const sagas = {
   ...userSagas,
-  // ...chuckSagas,
-  // ...triviaSagas,
+  ...gallerySagas,
 };
 
 export default sagas;

@@ -5,7 +5,6 @@ import { registerUser, logOut, logIn } from "../../service/UserService";
 
 function* registerHandler(action) {
   try {
-    console.log('sdadsadasasd');
     const { data } = yield call(registerUser, (action.payload));
     localStorage.setItem("access_token", data.authorisation.token);
     console.log(data);

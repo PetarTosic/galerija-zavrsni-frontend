@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { performRegister } from "../store/user/slice";
-import { selectLogedIn, selectLogedUser } from "../store/user/selectors";
+import { selectLogedIn } from "../store/user/selectors";
 
 const Register = () => {
   const logedIn = useSelector(selectLogedIn);
@@ -14,6 +14,9 @@ const Register = () => {
   });
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    document.title = 'Register';
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { performUserSet } from "../store/user/slice";
 
 const Login = () => {
-  
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.title = 'Login';
+  });
 
   const handelInputChange = (event) => {
     const { name, value } = event.target;

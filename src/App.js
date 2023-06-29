@@ -4,13 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AllGalleries from "./components/AllGalleries";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import Gallery from "./components/Gallery";
 
 function App() {
   return (
     <div className="container" style={{ marginTop: "80px" }}>
         <Routes>
           <Route index path="/" element={<AllGalleries />}></Route>
+          <Route path='/galleries/:id' element={<Gallery />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
         </Routes>

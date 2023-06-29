@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { performLogedIn } from "../store/user/slice";
 import { selectLogedIn } from "../store/user/selectors";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const logedIn = useSelector(selectLogedIn);
-
+  console.log(logedIn);
   const logoutHandler = () => {
     dispatch(performLogedIn());
   }
@@ -13,25 +14,25 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid container d-flex flex-wrap justify-content-center">
-        <a
+        <Link
           className="navbar-brand d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
-          href="/"
+          to={"/"}
         >
           All Galleries
-        </a>
+        </Link>
         <div className="nav">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             {!logedIn ? 
             <div style={{display: "flex"}}>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="/login">
+                <Link className="nav-link" aria-current="page" to={"/login"}>
                   Login
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/register">
+                <Link className="nav-link" to={"/register"}>
                   Register
-                </a>
+                </Link>
               </li>
             </div>
             :
