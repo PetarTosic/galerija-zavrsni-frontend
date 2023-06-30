@@ -1,7 +1,7 @@
 import { put, call, takeLatest } from "redux-saga/effects";
-import { setLogout, setLogedUser, performLogedIn, performUserSet, performRegister } from "./slice";
+import { setLogout, setLogedUser, performLogedIn, performUserSet, performRegister, setAllUsers, performAllUsersSet } from "./slice";
 
-import { registerUser, logOut, logIn } from "../../service/UserService";
+import { registerUser, logOut, logIn, getUsers } from "../../service/UserService";
 
 function* registerHandler(action) {
   try {
@@ -32,6 +32,15 @@ function* logoutHandler() {
   }
 }
 
+function* allUsersHandler() {
+  try {
+    const { data } = yield call(getUsers);
+    yield put(setAllUsers(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function* watchRegisterUser() {
   yield takeLatest(performRegister.type, registerHandler);
 }
@@ -42,4 +51,8 @@ export function* watchLoginUser() {
 
 export function* watchLogoutUser() {
   yield takeLatest(performLogedIn.type, logoutHandler);
+}
+
+export function* watchAllUsers() {
+  yield takeLatest(performAllUsersSet.type, allUsersHandler);
 }

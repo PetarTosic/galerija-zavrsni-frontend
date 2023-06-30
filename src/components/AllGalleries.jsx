@@ -30,7 +30,7 @@ const AllGalleries = () => {
       return (
       <div class="col">
         <div class="card shadow-sm">
-          <img src={gallery.urls} class="bd-placeholder-img card-img-top" width="100%" height="225"/>
+          <img src={gallery.urls.split(',')[0]} class="bd-placeholder-img card-img-top" width="100%" height="225"/>
           <div class="card-body">
             <Link type="button" class="btn btn-sm">{gallery.user.first_name} {gallery.user.last_name}</Link>
             <p class="card-text">{gallery.name}</p>

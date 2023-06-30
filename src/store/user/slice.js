@@ -3,14 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const middlewareActions = {
   performUserSet: () => {},
   performLogedIn: () => {},
-  performRegister: () => {}
-}
+  performRegister: () => {},
+  performAllUsersSet: () => {},
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     logedUser: {},
-    logedIn: false
+    logedIn: false,
+    allUsers: [],
   },
   reducers: {
     setLogedUser: (state, action) => {
@@ -21,10 +23,21 @@ const userSlice = createSlice({
       state.logedIn = false;
       state.logedUser = {};
     },
+    setAllUsers: (state, action) => {
+      state.allUsers = action.payload;
+    },
     ...middlewareActions,
-  }
-})
+  },
+});
 
-export const { setLogout, setLogedUser, performLogedIn, performUserSet, performRegister } = userSlice.actions;
+export const {
+  setLogout,
+  setAllUsers,
+  setLogedUser,
+  performLogedIn,
+  performUserSet,
+  performRegister,
+  performAllUsersSet,
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,14 +1,12 @@
 import { API } from "../shared/api";
 
-export const registerUser = (
-  user
-) => {
+export const registerUser = (user) => {
   let first_name = user.first_name;
   let last_name = user.last_name;
   let email = user.email;
   let password = user.password;
   let password_confirmation = user.password_confirmation;
-  
+
   return API.post("/register", {
     first_name,
     last_name,
