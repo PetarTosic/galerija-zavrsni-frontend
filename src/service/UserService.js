@@ -32,3 +32,7 @@ export const logOut = () => {
 export const getUsers = () => {
   return API.get("/users");
 };
+
+export const getAuthor = (id) => {
+  return API.get(`/users/${id}`);
+};

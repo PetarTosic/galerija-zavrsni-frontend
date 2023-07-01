@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { performRegister } from "../store/user/slice";
 import { selectLogedIn } from "../store/user/selectors";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const logedIn = useSelector(selectLogedIn);
@@ -13,6 +14,7 @@ const Register = () => {
     password_confirmation: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'Register';
@@ -30,6 +32,8 @@ const Register = () => {
       password: "",
       password_confirmation: "",
     });
+
+    navigate('/');
   };
 
 

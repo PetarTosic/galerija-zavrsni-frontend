@@ -5,6 +5,7 @@ const middlewareActions = {
   performLogedIn: () => {},
   performRegister: () => {},
   performAllUsersSet: () => {},
+  performAuthorSet: () => {},
 };
 
 const userSlice = createSlice({
@@ -13,6 +14,7 @@ const userSlice = createSlice({
     logedUser: {},
     logedIn: false,
     allUsers: [],
+    author: {},
   },
   reducers: {
     setLogedUser: (state, action) => {
@@ -26,6 +28,9 @@ const userSlice = createSlice({
     setAllUsers: (state, action) => {
       state.allUsers = action.payload;
     },
+    setAuthor: (state, action) => {
+      state.author = action.payload;
+    },
     ...middlewareActions,
   },
 });
@@ -34,10 +39,12 @@ export const {
   setLogout,
   setAllUsers,
   setLogedUser,
+  setAuthor,
   performLogedIn,
   performUserSet,
   performRegister,
   performAllUsersSet,
+  performAuthorSet,
 } = userSlice.actions;
 
 export default userSlice.reducer;

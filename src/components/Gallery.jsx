@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { performGallerySet } from "../store/gallery/slice";
 import { selectGallery } from "../store/gallery/selectors";
 import Carousel from "react-bootstrap/Carousel";
-import { selectAllUsers, selectLogedUser } from "../store/user/selectors";
+import { selectAllUsers, selectLogedIn, selectLogedUser } from "../store/user/selectors";
 import { performAllUsersSet } from "../store/user/slice";
 import { deleteComment, postComment } from "../service/GalleryService";
 
@@ -16,6 +16,7 @@ const Gallery = () => {
   const [urls, setUrls] = useState([]);
   const [commDescription, setComDescription] = useState("");
   const logedUser = useSelector(selectLogedUser);
+  const logedIn = useSelector(selectLogedIn);
 
   useEffect(() => {
     dispatch(performAllUsersSet());
@@ -28,18 +29,13 @@ const Gallery = () => {
     document.title = gallery.name;
   }, [gallery]);
 
-  const setName = () => {
-    if (gallery.user) {
-      return `${gallery.user.first_name} ${gallery.user.last_name}`;
-    }
-  };
-
   const dateFunc = (date) => {
     return new Date(date).toLocaleString();
   };
 
   const storeComment = () => {
     postComment(commDescription, logedUser.id, id);
+    dispatch(performGallerySet(id));
     setComDescription("");
   };
 
@@ -52,14 +48,40 @@ const Gallery = () => {
       return <button className="btn btn-danger" onClick={() => deleteCom(id)}>Delete</button>
     }
   }
-  const deleteCom = (id) => {
-    console.log(id);
-    deleteComment(id);
+
+  const deleteCom = (index) => {
+    deleteComment(index);
+    dispatch(performGallerySet(id));
+  }
+
+  const setAuthorLink = () => {
+    if(gallery.user) {
+      return (
+        <Link
+          className="btn btn-secondary"
+          style={{
+            border: "2px solid black",
+            borderRadius: "15px",
+            margin: "5px",
+            padding: "8px",
+          }}
+          to={`/authors/${gallery.user.id}`}
+        >
+          Author: {`${gallery.user.first_name} ${gallery.user.last_name}`}
+        </Link>
+      )
+    }
+  }
+  
+  let checker = {display: "none"};
+
+  if(logedIn) {
+    checker = {display: "block"};
   }
 
   const setComments = () => {
     if (Object.keys(gallery).length !== 0) {
-      return gallery.comments.map((comment) => {
+      return gallery.comments.map((comment, index) => {
         return (
           <div
             style={{
@@ -69,6 +91,7 @@ const Gallery = () => {
               margin: "10px",
               borderRadius: "10px",
             }}
+            key={index}
           >
             <div
               style={{
@@ -97,27 +120,18 @@ const Gallery = () => {
     <div
       style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
     >
-      <Link
-        className="btn btn-secondary"
-        style={{
-          border: "2px solid black",
-          borderRadius: "15px",
-          margin: "5px",
-          padding: "8px",
-        }}
-      >
-        Author: {setName()}
-      </Link>
+      {setAuthorLink()}
       <Carousel style={{ width: "60vw" }}>
         {urls.map((url, i) => {
           return (
             <Carousel.Item key={i}>
+              <a href={url} target="_blank">
               <img
                 style={{ borderRadius: "15px" }}
                 className="d-block w-100"
                 src={url}
                 alt="slider image"
-              />
+              /></a>
               <Carousel.Caption>
                 <h3>{gallery.name}</h3>
                 <p>{gallery.description}</p>
@@ -126,6 +140,7 @@ const Gallery = () => {
           );
         })}
       </Carousel>
+      <div style={checker}>
       <div
         style={{
           margin: "10px",
@@ -150,7 +165,7 @@ const Gallery = () => {
         >
           Submit
         </button>
-      </div>
+      </div></div>
       {setComments()}
     </div>
   );

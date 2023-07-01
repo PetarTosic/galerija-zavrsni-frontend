@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { performUserSet } from "../store/user/slice";
+import { selectLogedIn } from "../store/user/selectors";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -8,10 +10,15 @@ const Login = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const logedIn = useSelector(selectLogedIn);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'Login';
-  });
+    if(logedIn){
+      navigate('/');
+    }
+  }, [logedIn]);
 
   const handelInputChange = (event) => {
     const { name, value } = event.target;

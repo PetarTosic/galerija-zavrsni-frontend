@@ -8,6 +8,7 @@ import Gallery from "./components/Gallery";
 import { API } from "./shared/api";
 import { useDispatch } from "react-redux";
 import { performUserSet } from "./store/user/slice";
+import Author from "./components/Author";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
           <Route path='/galleries/:id' element={<Gallery />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/authors/:id" element={<Author />}></Route>
         </Routes>
     </div>
   );
