@@ -20,10 +20,13 @@ const gallerySlice = createSlice({
     setGallery: (state, action) => {
       state.gallery = action.payload;
     },
+    addGalleries: (state, action) => {
+      state.galleries = [...state.galleries, ...action.payload.data];
+    },
     ...middlewareActions,
   }
 })
 
-export const { setGalleries, performGalleriesSet, setGallery, performGallerySet } = gallerySlice.actions;
+export const { addGalleries, setGalleries, performGalleriesSet, setGallery, performGallerySet } = gallerySlice.actions;
 
 export default gallerySlice.reducer;

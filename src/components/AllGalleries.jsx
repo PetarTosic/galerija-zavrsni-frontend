@@ -6,27 +6,17 @@ import { Link } from "react-router-dom";
 
 const AllGalleries = () => {
   const dispatch = useDispatch();
-  const galleriesHelper = useSelector(selectAllGalleries);
+  const galleries = useSelector(selectAllGalleries);
   let [search, setSearch] = useState({search: ''});
   const lastPage = useSelector(selectLastPage);
   let [curPage, setCurPage] = useState();
-  let [galleries, setGalleries] = useState(galleriesHelper);
 
   useEffect(() => {
     dispatch(performGalleriesSet({page: curPage}));
     document.title = 'Home';
     setCurPage(1);
   }, []);
-  
-  useEffect(() => {
-    if(galleries.length) {
-      if(galleriesHelper[0].id != galleries[0].id) {
-        setGalleries([...galleries, ...galleriesHelper]);
-      }
-    }else {
-      setGalleries(galleriesHelper);
-    }
-  }, [galleriesHelper])
+
   let hide = {display: 'none'};
 
   const loadMore = () => {
@@ -50,7 +40,9 @@ const AllGalleries = () => {
   }
   
   const filterResults = (event) => {
-    
+    event.preventDefault();
+    setCurPage(1);
+    dispatch(performGalleriesSet({name: search.search}));
   }
   
   return (
@@ -68,7 +60,6 @@ const AllGalleries = () => {
             onChange={handleSearchChange}
             value={search.search}
             placeholder="Search"
-            required
           />
         </div>
         <button className="btn btn-primary" type="submit" style={{marginLeft: "10px"}}>
