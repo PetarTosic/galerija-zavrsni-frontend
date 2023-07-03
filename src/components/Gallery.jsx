@@ -49,7 +49,7 @@ const Gallery = () => {
   }
 
   const deleteCom = (index) => {
-    let deleteConfirm = window.confirm("Log out?");
+    let deleteConfirm = window.confirm("Delete comment?");
     if(deleteConfirm) {
       deleteComment(index);
       dispatch(performGallerySet(id));
@@ -57,7 +57,7 @@ const Gallery = () => {
   }
 
   const delGallery = () => {
-    let deleteConfirm = window.confirm("Log out?");
+    let deleteConfirm = window.confirm("Delete gallery?");
     if(deleteConfirm) {
       deleteGallery(gallery.id);
       navigate('/');
