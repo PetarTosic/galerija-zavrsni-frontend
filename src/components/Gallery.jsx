@@ -49,13 +49,19 @@ const Gallery = () => {
   }
 
   const deleteCom = (index) => {
-    deleteComment(index);
-    dispatch(performGallerySet(id));
+    let deleteConfirm = window.confirm("Log out?");
+    if(deleteConfirm) {
+      deleteComment(index);
+      dispatch(performGallerySet(id));
+    }
   }
 
   const delGallery = () => {
-    deleteGallery(gallery.id);
-    navigate('/');
+    let deleteConfirm = window.confirm("Log out?");
+    if(deleteConfirm) {
+      deleteGallery(gallery.id);
+      navigate('/');
+    }
   }
 
   const setAuthorLink = () => {

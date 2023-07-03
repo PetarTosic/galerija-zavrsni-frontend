@@ -42,7 +42,7 @@ const Login = () => {
           <label for="email">Email address</label>
         </div>
         <div className="form-floating mt-3">
-          <input name="password" onChange={handelInputChange} value={user.password} type="password" className="form-control" id="password" placeholder="Password" />
+          <input name="password" onChange={handelInputChange} value={user.password} type="password" className="form-control" id="password" placeholder="Password" pattern="(?=.*\d).{8,}" required/>
           <label for="password">Password</label>
         </div>
         <button className="btn btn-primary w-100 py-2 mt-3" type="submit">Log in</button>
