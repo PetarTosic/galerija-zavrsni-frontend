@@ -31,7 +31,7 @@ const Navbar = () => {
         <div style={{display: "flex"}}>
           <Link
             className="navbar-brand  mb-3 mb-md-0 text-decoration-none"
-            to={`/authors/${logedUser.id}`}
+            to={`/my-galleries/${logedUser.id}`}
           >
             My Galleries
           </Link>

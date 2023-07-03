@@ -32,6 +32,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/authors/:id" element={<Author />}></Route>
+          <Route path="/my-galleries/:id" element={<Author />}></Route>
           <Route path="/create" element={<ProtectedRoute><CreateGallery /></ProtectedRoute>}></Route>
           <Route path="/create/:id" element={<ProtectedRoute><CreateGallery /></ProtectedRoute>}></Route>
         </Routes>

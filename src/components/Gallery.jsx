@@ -21,11 +21,10 @@ const Gallery = () => {
 
   useEffect(() => {
     dispatch(performAllUsersSet());
-    if (Object.keys(gallery).length === 0) {
-      dispatch(performGallerySet(id));
-    } else {
+    dispatch(performGallerySet(id));
+    if (Object.keys(gallery).length !== 0) {
       setUrls(gallery.urls.split(","));
-    }
+    } 
     document.title = gallery.name;
   }, [gallery]);
 
