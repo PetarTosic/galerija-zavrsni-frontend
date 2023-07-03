@@ -9,11 +9,13 @@ const gallerySlice = createSlice({
   name: "gallery",
   initialState: {
     galleries: [],
-    gallery: {}
+    gallery: {},
+    last_page: 0
   },
   reducers: {
     setGalleries: (state, action) => {
-      state.galleries = action.payload;
+      state.galleries = action.payload.data;
+      state.last_page = action.payload.last_page;
     },
     setGallery: (state, action) => {
       state.gallery = action.payload;

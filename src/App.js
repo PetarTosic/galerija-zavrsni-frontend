@@ -9,21 +9,20 @@ import { API } from "./shared/api";
 import { useDispatch } from "react-redux";
 import { performUserSet } from "./store/user/slice";
 import Author from "./components/Author";
+import { useEffect } from "react";
+import CreateGallery from "./components/CreateGallery";
+import ProtectedRoute from "./shared/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
 
-  async function checkUser() {
-    const token = localStorage.getItem("access_token");
-    if(token) {
-      const { data } = await API.post("/refresh");
-        localStorage.setItem("access_token", data.authorization.token);
-        dispatch(performUserSet(data));
-        console.log(token);
+  useEffect(() => {
+    if(email && password) {
+      dispatch(performUserSet({email: email, password: password}))
     }
-  }
-
-  // checkUser();
+  },[]);
 
   return (
     <div className="container" style={{ marginTop: "80px" }}>
@@ -33,6 +32,8 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/authors/:id" element={<Author />}></Route>
+          <Route path="/create" element={<ProtectedRoute><CreateGallery /></ProtectedRoute>}></Route>
+          <Route path="/create/:id" element={<ProtectedRoute><CreateGallery /></ProtectedRoute>}></Route>
         </Routes>
     </div>
   );

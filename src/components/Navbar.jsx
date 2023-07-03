@@ -1,15 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { performLogedIn } from "../store/user/slice";
 import { selectLogedIn, selectLogedUser } from "../store/user/selectors";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const logedIn = useSelector(selectLogedIn);
   const logedUser = useSelector(selectLogedUser);
+  const navigate = useNavigate();
   
   const logoutHandler = () => {
-    dispatch(performLogedIn());
+    const logOut = window.confirm("Log out?");
+    if(logOut) {
+      dispatch(performLogedIn());
+      navigate('/');
+    }
   }
 
   return (
@@ -31,13 +36,13 @@ const Navbar = () => {
             My Galleries
           </Link>
           <Link className="navbar-brand  mb-3 mb-md-0 text-decoration-none" to={"/create"}>
-            Create Gallery
+            Create New Gallery
           </Link>
         </div>
         : <></>}</div>
         <div className="nav">
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            {logedIn ? <li className="nav-item nav-link" style={{marginRight: "20px"}}>{logedUser.first_name}</li> : <></>}
+            {logedIn ? <li className="nav-item nav-link" style={{marginRight: "20px"}}>{logedUser.first_name} {logedUser.last_name}</li> : <></>}
             {!logedIn ? 
             <div style={{display: "flex"}}>
               <li className="nav-item">

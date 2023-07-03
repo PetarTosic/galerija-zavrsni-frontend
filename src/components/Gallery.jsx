@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { performGallerySet } from "../store/gallery/slice";
 import { selectGallery } from "../store/gallery/selectors";
 import Carousel from "react-bootstrap/Carousel";
 import { selectAllUsers, selectLogedIn, selectLogedUser } from "../store/user/selectors";
 import { performAllUsersSet } from "../store/user/slice";
-import { deleteComment, postComment } from "../service/GalleryService";
+import { deleteComment, deleteGallery, postComment } from "../service/GalleryService";
 
 const Gallery = () => {
   const { id } = useParams();
@@ -17,10 +17,10 @@ const Gallery = () => {
   const [commDescription, setComDescription] = useState("");
   const logedUser = useSelector(selectLogedUser);
   const logedIn = useSelector(selectLogedIn);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(performAllUsersSet());
-
     if (Object.keys(gallery).length === 0) {
       dispatch(performGallerySet(id));
     } else {
@@ -54,13 +54,18 @@ const Gallery = () => {
     dispatch(performGallerySet(id));
   }
 
+  const delGallery = () => {
+    deleteGallery(gallery.id);
+    navigate('/');
+  }
+
   const setAuthorLink = () => {
     if(gallery.user) {
       return (
+        <div style={{display: "flex", marginBottom: "10px"}}>
         <Link
           className="btn btn-secondary"
           style={{
-            border: "2px solid black",
             borderRadius: "15px",
             margin: "5px",
             padding: "8px",
@@ -69,6 +74,30 @@ const Gallery = () => {
         >
           Author: {`${gallery.user.first_name} ${gallery.user.last_name}`}
         </Link>
+        {logedUser.id == gallery.user.id ? <div>
+        <Link
+        className="btn btn-success"
+        style={{
+          borderRadius: "15px",
+          margin: "5px",
+          padding: "8px",
+        }}
+        to={`/create/${gallery.id}`}
+      >
+        Edit
+      </Link>
+      
+      <button
+      onClick={delGallery}
+      className="btn btn-danger"
+      style={{
+        borderRadius: "15px",
+        margin: "5px",
+        padding: "8px",
+      }}
+    >
+      Delete
+    </button> </div> : <></>}</div>
       )
     }
   }

@@ -23,6 +23,14 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if(user.password != user.password_confirmation) {
+      alert("Password confirmation doesn't match!");
+      setUser((prevState) => {
+        return { ...prevState, password_confirmation: "" }
+      })
+      return;
+    }
+
     dispatch(performRegister(user));
 
     setUser({
@@ -108,6 +116,7 @@ const Register = () => {
             required
           />
           <label for="password">Password</label>
+          <div id="emailHelp" class="form-text">Password must be 8 characters long and contain at least one digit.</div>
         </div>
         <div className="form-floating mt-3">
           <input

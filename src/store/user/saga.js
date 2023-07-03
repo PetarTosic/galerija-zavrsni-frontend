@@ -16,7 +16,6 @@ function* registerHandler(action) {
 function* authorHandler(action) {
   try {
     const { data } = yield call(getAuthor, (action.payload));
-    console.log(data);
     yield put(setAuthor(data));
   } catch (err) {
     console.log(err);
@@ -27,6 +26,8 @@ function* loginHandler(action) {
   try {
     const { data } = yield call(logIn, action.payload);
     localStorage.setItem("access_token", data.authorisation.token);
+    localStorage.setItem("email", action.payload.email);
+    localStorage.setItem("password", action.payload.password);
     yield put(setLogedUser(data.user));
   } catch (err) {
     alert('Invalid credentials!');
@@ -35,6 +36,9 @@ function* loginHandler(action) {
 
 function* logoutHandler() {
   try {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
     yield put(setLogout());
   } catch (err) {
     console.log(err);

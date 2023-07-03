@@ -2,10 +2,10 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import { performGalleriesSet, setGalleries, performGallerySet, setGallery } from "./slice";
 import { getGalleries, getGalleryById } from "../../service/GalleryService";
 
-function* galleriesHandler() {
+function* galleriesHandler(action) {
   try {
-    const { data } = yield call(getGalleries);
-    yield put(setGalleries(data.data));
+    const { data } = yield call(getGalleries, action.payload);
+    yield put(setGalleries(data));
   } catch (err) {
     console.log(err);
   }
