@@ -19,34 +19,34 @@ const Author = () => {
   const dateFunc = (date) => {
     return new Date(date).toLocaleString();
   };
-
+  
   const delGallery = (galleryId) => {
     deleteGallery(galleryId);
     dispatch(performAuthorSet(id));
     navigate(`/authors/${id}`);
   };
-
+  
   let hide = {};
-
+  
   if (Object.keys(author).length !== 0) {
-    if (!author.galleries.length) {
+    if (!author.user.gallery) {
       hide = { display: "content", fontWeight: "500", fontSize: "30px" };
     } else {
       hide = { display: "none" };
     }
   }
-
+  
   return (
     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <div style={hide}></div>
       <div style={hide}>There are no galleries.</div>
-      {author.galleries
+      {author?.user?.gallery
         ?.map((gallery, index) => {
           return (
             <div key={index} className="col">
               <div className="card shadow-sm">
                 <img
-                  src={gallery.urls.split(",")[0]}
+                  src={JSON.parse(gallery.urls)[0]}
                   className="bd-placeholder-img card-img-top"
                   width="100%"
                   height="225"

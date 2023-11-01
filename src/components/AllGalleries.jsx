@@ -72,7 +72,7 @@ const AllGalleries = () => {
       return (
       <div key={index} className="col">
         <div className="card shadow-sm">
-          <img src={gallery.urls.split(',')[0]} className="bd-placeholder-img card-img-top" width="100%" height="225"/>
+          <img src={gallery.urls[0]} className="bd-placeholder-img card-img-top" width="100%" height="225"/>
           <div className="card-body"><>Author:</>
             <Link to={`/authors/${gallery.user.id}`} type="button" className="btn btn-sm btn-outline-primary" style={{marginLeft: "5px", marginBottom: "8px"}}>{gallery.user.first_name} {gallery.user.last_name}</Link>
             <br/>Gallery Name:

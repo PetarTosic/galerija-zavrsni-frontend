@@ -18,16 +18,19 @@ const Gallery = () => {
   const logedUser = useSelector(selectLogedUser);
   const logedIn = useSelector(selectLogedIn);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     dispatch(performAllUsersSet());
     dispatch(performGallerySet(id));
+    // if (Object.keys(gallery).length !== 0) {
+    //   setUrls(gallery.urls.split(","));
+    // } 
     if (Object.keys(gallery).length !== 0) {
-      setUrls(gallery.urls.split(","));
+      setUrls(gallery.urls);
     } 
     document.title = gallery.name;
   }, [gallery]);
-
+  
   const dateFunc = (date) => {
     return new Date(date).toLocaleString();
   };
@@ -135,8 +138,8 @@ const Gallery = () => {
               }}
             >
               <div style={{ fontWeight: "bold" }}>
-                {users.find((user) => user.id === comment.user_id).first_name}{" "}
-                {users.find((user) => user.id === comment.user_id).last_name}
+                {users.users.find((user) => user.id === comment.user_id).first_name}{" "}
+                {users.users.find((user) => user.id === comment.user_id).last_name}
               </div>
               <div>{dateFunc(comment.created_at)}</div>
             </div>
